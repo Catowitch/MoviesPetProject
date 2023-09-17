@@ -3,5 +3,13 @@
     <style name="Base.Theme.MoviesPetProject" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="android:windowBackground">@color/black</item>
+        <item name="android:background">@color/black</item>
+        <item name="android:colorPrimaryDark">@color/black</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowAllowEnterTransitionOverlap">true</item>
+        <item name="android:windowAllowReturnTransitionOverlap">true</item>
+
+
     </style>
 </resources>
