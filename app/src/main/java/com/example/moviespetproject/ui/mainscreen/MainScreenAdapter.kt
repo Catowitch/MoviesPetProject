@@ -1,22 +1,18 @@
 package com.example.moviespetproject.ui.mainscreen
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviespetproject.R
-import com.example.moviespetproject.ui.filmscreen.Data
+import com.example.moviespetproject.ui.Data
 
 class MainScreenAdapter(private val parentFragment: Fragment, val viewModel: SharedViewModel): RecyclerView.Adapter<MainScreenAdapter.MainScreenViewHolder>() {
-
-    //private var _currentEpisode = 0
-    //val currentEpisode = _currentEpisode
-
 
     class MainScreenViewHolder(val view: View): RecyclerView.ViewHolder(view){
         val text: TextView = view.findViewById(R.id.episode_name)
@@ -35,7 +31,6 @@ class MainScreenAdapter(private val parentFragment: Fragment, val viewModel: Sha
     override fun onBindViewHolder(holder: MainScreenViewHolder, position: Int) {
         holder.text.text = "Episode ${position+1}"
         holder.image.setImageResource(Data.images[position])
-//        holder.itemView.findViewById<ImageView>(R.id.sharedElement).transitionName = "transition_item$position"
         holder.view.setOnClickListener { onMovieClick(it,position) }
     }
 
@@ -43,11 +38,10 @@ class MainScreenAdapter(private val parentFragment: Fragment, val viewModel: Sha
     private fun onMovieClick(view: View, position:Int){
         if(SharedViewModel.dbFilmsEmpty && !SharedViewModel.filmsLoadedSuccessfully){
             viewModel.getFilmsData()
+            Toast.makeText(view.context, "Error, could not load data, check your internet connection or try again later!", Toast.LENGTH_LONG).show()
+
             return
         }
-//        Toast.makeText(view.context, "You clicked on ${view.findViewById<TextView>(R.id.episode_name).text}", Toast.LENGTH_LONG).show()
-        Log.d("Movie click", "You clicked on ${view.findViewById<TextView>(R.id.episode_name).text}")
-        //_currentEpisode = position
 
         if(viewModel!=null){
             viewModel.SetCurrentEpisode(position)

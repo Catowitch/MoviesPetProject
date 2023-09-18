@@ -18,15 +18,6 @@ data class FilmResult(
     var result: List<SwBaseResponseResult<FilmProps>>
 )
 
-//@JsonClass(generateAdapter = true)
-//Data class Film(
-//    @Json(name = "properties") val properties: Props,
-//    val description: String,
-//    @Json(name = "_id") val id: String,
-//    val uid: String,
-//    @Json(name = "__v") val v: Int
-//)
-
 
 @JsonClass(generateAdapter = true)
 data class FilmProps(

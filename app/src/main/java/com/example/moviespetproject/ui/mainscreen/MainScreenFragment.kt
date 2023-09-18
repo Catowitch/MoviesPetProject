@@ -2,7 +2,6 @@ package com.example.moviespetproject.ui.mainscreen
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -24,7 +23,7 @@ class MainScreenFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
 
-    private lateinit var dialog: AlertDialog
+    //private lateinit var dialog: AlertDialog
 
 
     private val db by lazy {
@@ -51,18 +50,14 @@ class MainScreenFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main_screen, container, false)
 
-        val dialogBuilder = AlertDialog.Builder(requireContext())
+        /*val dialogBuilder = AlertDialog.Builder(requireContext())
         dialogBuilder.setCancelable(false)
         val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.waiting_dialog, null)
         dialogBuilder.setView(dialogView)
         dialog = dialogBuilder.create()
-        //dialog.show()
+        dialog.show()*/
 
-        sharedViewModel.onFinishLoadAddListener { dialog.dismiss(); Log.d("ON_FINISH_LOADING_EVENT", "Finished loading!") }
-
-
-
-
+        //sharedViewModel.onFinishLoadAddListener { dialog.dismiss(); Log.d("ON_FINISH_LOADING_EVENT", "Finished loading!") }
         return binding.root
     }
 

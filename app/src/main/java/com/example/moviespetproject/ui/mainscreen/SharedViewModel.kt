@@ -23,6 +23,9 @@ class SharedViewModel: ViewModel() {
     private val _characters = MutableLiveData<MutableMap<Int, CharacterProps>>(mutableMapOf())
     val characters: LiveData<MutableMap<Int,CharacterProps>> = _characters
 
+    private val _currentCharecter = MutableLiveData<CharacterProps>()
+    val currentCharacter: LiveData<CharacterProps> = _currentCharecter
+
     private val _currentEpisode = MutableLiveData<Int>(0)
     val currentEpisode: LiveData<Int> = _currentEpisode
 
@@ -31,36 +34,15 @@ class SharedViewModel: ViewModel() {
 
     private var db: FilmDatabase? = null
 
-    private val onFinishLoad: MutableSet<()->Unit> = mutableSetOf()
+    //private val onFinishLoad: MutableSet<()->Unit> = mutableSetOf()
 
-    fun onFinishLoadAddListener(action: ()->Unit) = onFinishLoad.add(action)
-    fun onFinishLoadRemoveListener(action: ()->Unit) = onFinishLoad.remove(action)
+    //fun onFinishLoadAddListener(action: ()->Unit) = onFinishLoad.add(action)
+    //fun onFinishLoadRemoveListener(action: ()->Unit) = onFinishLoad.remove(action)
 
 
     init {
         getFilmsData()
     }
-
-
-    /*fun getCharacterDataUrl(url: String?): CharacterProps?{
-        val id = getUriLastSubstring(url).toIntOrNull()
-        *//*if(characters.value?.containsKey(id) == true){
-            return characters.value!![id]
-        }*//*
-        viewModelScope.launch {
-            id?.let {
-                try {
-                    val character = starWarsApi.retrofitService.character(id.toString())
-                    Log.d("TRYING_GET_CHARATER", "id = $id; character = ${character.toString()}; mapCount =${characters.value?.count()}")
-                    _characters.value?.set(it, character.result.properties)
-                    _characters.value = _characters.value
-                }catch (e:Exception){
-                    Log.e("Retrofit_Get_Character_Exception", e.message.toString())
-                }
-            }
-        }
-        return characters.value?.get(id) ?: null
-    }*/
 
     fun getFilmsData()
     {
@@ -83,30 +65,30 @@ class SharedViewModel: ViewModel() {
 
             db?.let {
                 dbFilmsEmpty = it.dao.isEmpty()
-                Log.d("DATABASE_EMPTY", dbFilmsEmpty.toString())
                 if(!dbFilmsEmpty)
                     loadFilms(it.dao.getFilmsFromDbTest())
                 if(dbFilmsEmpty && !filmsLoadedSuccessfully){
-
                     //Toast.makeText(context, "ERROR: films could not be loaded!", Toast.LENGTH_LONG).show()
-                    Log.e("FILMS_NOT_LOADED", "films could not be loaded!")
                 }
             }
 
             _films.value?.result = films.value?.result?.sortedBy { it.properties.episodeNumber }!!
 
             loadCharacters()
-
         }
-
     }
 
 
     private fun loadCharacters(){
+
+        if(!filmsLoadedSuccessfully)
+            return
         // Get all charaterers
         val set = mutableSetOf<String>()
-        repeat(films.value?.result!!.size){
-            films.value?.result?.get(it)?.properties?.charactersURLs?.let { set.addAll(it) }
+        films.value?.result?.let {
+            repeat(it.size){
+                films.value?.result?.get(it)?.properties?.charactersURLs?.let { set.addAll(it) }
+            }
         }
 
         // Load characters from db
@@ -131,12 +113,11 @@ class SharedViewModel: ViewModel() {
             }
 
             // load character from api
-            //if(characters.value?.containsKey(id) == false){
+            if(characters.value?.containsKey(id) == false){
             viewModelScope.launch {
                 id?.let {
                     try {
                         val character = starWarsApi.retrofitService.character(id.toString())
-                        Log.d("TRYING_GET_CHARATER", "id = $id; character = ${character.toString()}; mapCount =${characters.value?.count()}")
                         if(characters.value?.containsKey(id) == false){
                             characters.value?.set(it, character.result.properties)
                             _characters.postValue(_characters.value)
@@ -147,8 +128,12 @@ class SharedViewModel: ViewModel() {
                     }
                 }
             }
-            //}
+            }
         }
+    }
+
+    fun setCurrentCharacter(id:Int){
+        _currentCharecter.value = characters.value?.get(id)
     }
 
     fun setFilm(){

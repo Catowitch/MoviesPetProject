@@ -3,18 +3,10 @@ package com.example.moviespetproject.model
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Upsert
-import com.example.moviespetproject.network.SwBaseResponse
 
 
 @Dao
 interface SwDao{
-
-
-    /*@Insert
-    fun upsertFilm(films:FilmDb)
-
-    @Query("SELECT * FROM film_db")
-    fun getFilmsFromDb(): List<FilmDb>*/
 
     @Query("SELECT (SELECT COUNT(*) FROM film_res) == 0")
     fun isEmpty(): Boolean

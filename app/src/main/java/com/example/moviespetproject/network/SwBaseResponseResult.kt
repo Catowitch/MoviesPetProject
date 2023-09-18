@@ -1,10 +1,7 @@
 package com.example.moviespetproject.network
 
-import androidx.room.Entity
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
-import com.example.moviespetproject.model.FilmProps
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -52,9 +49,9 @@ data class PagerSwBaseResponse<T>(
 )
 
 // Result for multipage Data
-@JsonClass(generateAdapter = true)
-data class PageResult(
-    val uid: String,
-    val name: String,
-    val url: String
-)
+//@JsonClass(generateAdapter = true)
+//data class PageResult(
+//    val uid: String,
+//    val name: String,
+//    val url: String
+//)

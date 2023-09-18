@@ -1,7 +1,6 @@
-package com.example.moviespetproject.ui.filmscreen
+package com.example.moviespetproject.ui
 
 import com.example.moviespetproject.R
-import com.example.moviespetproject.model.CharacterProps
 
 object  Data {
     val images = mutableListOf (

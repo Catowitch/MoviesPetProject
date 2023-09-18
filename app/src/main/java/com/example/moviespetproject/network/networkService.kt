@@ -11,7 +11,6 @@ internal val moshi by lazy {
     Moshi.Builder()
         .add(KotlinJsonAdapterFactory())
         .build()
-        //.add(Iso8601DateTimeTypeAdapter())
 }
 
 

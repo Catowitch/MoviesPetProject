@@ -3,4 +3,15 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="director">Director: %s</string>
+    <string name="producers">Producers: %s</string>
+
+    <string name="height">Height: %s</string>
+    <string name="mass">Mass: %s</string>
+    <string name="hair_color">Hair Color: %s</string>
+    <string name="skin_color">Skin Color: %s</string>
+    <string name="eye_color">Eye Color: %s</string>
+    <string name="birth_year">Birth Year: %s</string>
+    <string name="gender">Gender: %s</string>
+    <string name="name">Name: %s</string>
+
 </resources>

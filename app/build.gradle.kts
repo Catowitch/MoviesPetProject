@@ -40,10 +40,6 @@ android {
     }
 }
 
-/*kotlin {
-    jvmToolchain(8)
-}*/
-
 dependencies {
 
     implementation("androidx.core:core-ktx:1.9.0")
@@ -59,20 +55,14 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
 
-
-
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
 
     // Retrofit with Moshi Converter
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
 
-
     //moshi
     implementation("com.squareup.moshi:moshi-kotlin:1.15.0")
-
-    // Coil
-    implementation("io.coil-kt:coil:1.1.1")
 
     // Navigation
     implementation ("androidx.navigation:navigation-fragment-ktx:2.5.0")
